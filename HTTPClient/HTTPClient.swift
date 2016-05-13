@@ -12,7 +12,7 @@ public class HTTPClient {
     private let session: NSURLSession
     private let sessionDelegate = HTTPSessionDelegate()
     private let requestBuilder = HTTPRequestBuilder()
-    var queryPreProcessor: HTTPQueryPreProcessor?
+    public var queryPreProcessor: HTTPQueryPreProcessor?
     
     public class Response {
         public let statusCode: Int
