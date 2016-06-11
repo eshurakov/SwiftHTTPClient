@@ -7,12 +7,19 @@
 //
 
 import Foundation
+import Log
 
 public class HTTPClient {
     private let session: NSURLSession
     private let sessionDelegate = HTTPSessionDelegate()
     private let requestBuilder = HTTPRequestBuilder()
+    
     public var queryPreProcessor: HTTPQueryPreProcessor?
+    public var logger: Log? {
+        didSet {
+            self.sessionDelegate.logger = self.logger
+        }
+    }
     
     public class Response {
         public let statusCode: Int
@@ -57,15 +64,12 @@ public class HTTPClient {
             }
         }
         
-        let request: NSURLRequest
         do {
-            request = try self.requestBuilder.requestFromQuery(query)
+            let request = try self.requestBuilder.requestFromQuery(query)
+            self.execute(request, completion: completion)
         } catch {
             completion(.Failure(error))
-            return
         }
-
-        self.execute(request, completion: completion)
     }
     
     public func execute(request: NSURLRequest, completion: RequestResult -> Void) {
@@ -76,6 +80,7 @@ public class HTTPClient {
 
 private class HTTPSessionDelegate: NSObject {
     private var contexts: [Int : Context] = [:]
+    var logger: Log?
     
     class Context {
         lazy var data = NSMutableData()
@@ -87,20 +92,40 @@ private class HTTPSessionDelegate: NSObject {
     }
     
     func startTask(task: NSURLSessionTask, completion: HTTPClient.RequestResult -> Void) {
+        self.logger?.d("request: \(task.currentRequest?.HTTPMethod): \(task.currentRequest?.URL)")
+        self.logger?.d("\(task.currentRequest?.allHTTPHeaderFields)")
+        if let body = task.currentRequest?.HTTPBody {
+            self.logger?.d(descriptionForData(body))
+        }
+        
+        // TODO: call completion with a failure?
         assert(self.contexts[task.taskIdentifier] == nil)
         
         self.contexts[task.taskIdentifier] = Context(completion: completion)
         task.resume()
     }
+    
+    private func descriptionForData(data: NSData) -> String {
+        if data.length < 500 {
+            return String(data: data, encoding: NSUTF8StringEncoding) ?? ""
+        }
+        
+        return "Data [\(data.length) bytes]"
+    }
 }
 
 extension HTTPSessionDelegate: NSURLSessionDelegate {
     @objc private func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
-        
+        // TODO
     }
 }
 
 extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
+    @objc private func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: (NSURLRequest?) -> Void) {
+        self.logger?.d("redirect: \(request.HTTPMethod): \(request.URL)")
+        completionHandler(request)
+    }
+    
     @objc private func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         guard let context = self.contexts[task.taskIdentifier] else {
             return
@@ -109,6 +134,9 @@ extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
         self.contexts[task.taskIdentifier] = nil
         
         if let error = error {
+            self.logger?.w("fail: \(task.currentRequest?.HTTPMethod): \(task.currentRequest?.URL)")
+            self.logger?.w("\(error)")
+            
             context.completion(.Failure(error))
         } else {
             let headers = HTTPHeaders()
@@ -118,6 +146,10 @@ extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
                 statusCode = httpResponse.statusCode
             } else {
                 statusCode = 0
+            }
+            self.logger?.d("finish: [\(statusCode)] \(task.currentRequest?.HTTPMethod): \(task.currentRequest?.URL)")
+            if context.data.length > 0 {
+                self.logger?.d(descriptionForData(context.data))
             }
             
             let response = HTTPClient.Response(statusCode: statusCode, headers: headers, data: context.data)

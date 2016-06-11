@@ -10,13 +10,18 @@ import Foundation
 
 // TODO: wrap key in an object, so that it would compare in a case-insensitive way 
 public class HTTPHeaders {
-    public struct Keys {
+    public struct Key: Hashable {
         public static let ContentType = "Content-Type"
         public static let Accept = "Accept"
         public static let Authorization = "Authorization"
         
-        private init() {
-            fatalError("Private init")
+        public var hashValue: Int {
+            return self.value.lowercaseString.hashValue
+        }
+        let value: String
+        
+        init(_ value: String) {
+            self.value = value
         }
     }
     
@@ -27,7 +32,7 @@ public class HTTPHeaders {
     
     public var accept: ContentType? {
         get {
-            if let value = self[Keys.Accept] {
+            if let value = self[Key.Accept] {
                 return ContentType.init(rawValue: value)
             }
             
@@ -35,13 +40,13 @@ public class HTTPHeaders {
         }
         
         set {
-            self[Keys.Accept] = newValue?.rawValue
+            self[Key.Accept] = newValue?.rawValue
         }
     }
     
     public var contentType: ContentType? {
         get {
-            if let value = self[Keys.ContentType] {
+            if let value = self[Key.ContentType] {
                 return ContentType.init(rawValue: value)
             }
             
@@ -49,36 +54,38 @@ public class HTTPHeaders {
         }
         
         set {
-            self[Keys.ContentType] = newValue?.rawValue
+            self[Key.ContentType] = newValue?.rawValue
         }
     }
     
     public var authorization: String? {
         get {
-            return self[Keys.Authorization]
+            return self[Key.Authorization]
         }
         
         set {
-            self[Keys.Authorization] = newValue
+            self[Key.Authorization] = newValue
         }
     }
     
     public subscript(index: String) -> String? {
         get {
-            return headers[index.lowercaseString]
+            return headers[Key(index)]
         }
         
         set {
-            headers[index] = newValue
+            headers[Key(index)] = newValue
         }
     }
     
     public var rawValue: [String: String] {
-        get {
-            return self.headers
+        var result: [String: String] = [:]
+        for (key, value) in self.headers {
+            result[key.value] = value
         }
+        return result
     }
-    private var headers: [String: String] = [:]
+    private var headers: [Key: String] = [:]
     
     public init() {
         
@@ -97,9 +104,13 @@ public class HTTPHeaders {
     func updateWithRawHeaders(rawHeaders: [NSObject: AnyObject]) {
         for (key, value) in rawHeaders {
             if let key = key as? String, let value = value as? String {
-                headers[key.lowercaseString] = value
+                headers[Key(key)] = value
             }
         }
     }
     
+}
+
+public func ==(lhs: HTTPHeaders.Key, rhs: HTTPHeaders.Key) -> Bool {
+    return lhs.value.lowercaseString == rhs.value.lowercaseString
 }

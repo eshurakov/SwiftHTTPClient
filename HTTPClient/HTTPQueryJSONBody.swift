@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HTTPQueryJSONBody: HTTPQueryBody {
+public final class HTTPQueryJSONBody: HTTPQueryBody {
     private let value: AnyObject
     
     public init(_ value: AnyObject) {
