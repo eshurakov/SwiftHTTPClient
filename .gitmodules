@@ -1,0 +1,3 @@
+[submodule "Carthage/Checkouts/SwiftLog"]
+	path = Carthage/Checkouts/SwiftLog
+	url = https://github.com/eshurakov/SwiftLog.git
