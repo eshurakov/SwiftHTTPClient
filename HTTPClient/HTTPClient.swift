@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Log
 
 public class HTTPClient {
     private let session: NSURLSession
@@ -15,7 +14,7 @@ public class HTTPClient {
     private let requestBuilder = HTTPRequestBuilder()
     
     public var queryPreProcessor: HTTPQueryPreProcessor?
-    public var logger: Log? {
+    public var logger: HTTPClientLogger? {
         didSet {
             self.sessionDelegate.logger = self.logger
         }
@@ -80,7 +79,7 @@ public class HTTPClient {
 
 private class HTTPSessionDelegate: NSObject {
     private var contexts: [Int : Context] = [:]
-    var logger: Log?
+    var logger: HTTPClientLogger?
     
     class Context {
         lazy var data = NSMutableData()
@@ -92,25 +91,13 @@ private class HTTPSessionDelegate: NSObject {
     }
     
     func startTask(task: NSURLSessionTask, completion: HTTPClient.RequestResult -> Void) {
-        self.logger?.d("request: \(task.currentRequest?.HTTPMethod): \(task.currentRequest?.URL)")
-        self.logger?.d("\(task.currentRequest?.allHTTPHeaderFields)")
-        if let body = task.currentRequest?.HTTPBody {
-            self.logger?.d(descriptionForData(body))
-        }
-        
+        self.logger?.logTaskStart(task)
+                
         // TODO: call completion with a failure?
         assert(self.contexts[task.taskIdentifier] == nil)
         
         self.contexts[task.taskIdentifier] = Context(completion: completion)
         task.resume()
-    }
-    
-    private func descriptionForData(data: NSData) -> String {
-        if data.length < 500 {
-            return String(data: data, encoding: NSUTF8StringEncoding) ?? ""
-        }
-        
-        return "Data [\(data.length) bytes]"
     }
 }
 
@@ -122,7 +109,7 @@ extension HTTPSessionDelegate: NSURLSessionDelegate {
 
 extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
     @objc private func URLSession(session: NSURLSession, task: NSURLSessionTask, willPerformHTTPRedirection response: NSHTTPURLResponse, newRequest request: NSURLRequest, completionHandler: (NSURLRequest?) -> Void) {
-        self.logger?.d("redirect: \(request.HTTPMethod): \(request.URL)")
+        self.logger?.logTaskRedirect(task)
         completionHandler(request)
     }
     
@@ -134,9 +121,7 @@ extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
         self.contexts[task.taskIdentifier] = nil
         
         if let error = error {
-            self.logger?.w("fail: \(task.currentRequest?.HTTPMethod): \(task.currentRequest?.URL)")
-            self.logger?.w("\(error)")
-            
+            self.logger?.logTaskFailure(task, error: error)
             context.completion(.Failure(error))
         } else {
             let headers = HTTPHeaders()
@@ -147,10 +132,7 @@ extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
             } else {
                 statusCode = 0
             }
-            self.logger?.d("finish: [\(statusCode)] \(task.currentRequest?.HTTPMethod): \(task.currentRequest?.URL)")
-            if context.data.length > 0 {
-                self.logger?.d(descriptionForData(context.data))
-            }
+            self.logger?.logTaskSuccess(task, statusCode: statusCode, data: context.data)
             
             let response = HTTPClient.Response(statusCode: statusCode, headers: headers, data: context.data)
             context.completion(.Success(response))

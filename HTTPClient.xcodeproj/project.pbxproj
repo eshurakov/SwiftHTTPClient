@@ -19,6 +19,11 @@
 		A6580F6C1CE3D488000E7C6E /* HTTPQueryBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6703BA31C5E7B0B00B16CD7 /* HTTPQueryBody.swift */; };
 		A6580F6D1CE3D488000E7C6E /* HTTPQueryJSONBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6703BA51C5EB23E00B16CD7 /* HTTPQueryJSONBody.swift */; };
 		A6580F6E1CE3D488000E7C6E /* HTTPQueryPreProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A638B0001CA4204700254F97 /* HTTPQueryPreProcessor.swift */; };
+		A66AB66D1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB66C1D0C7B92009CFDB7 /* HTTPClientLogger.swift */; };
+		A66AB66E1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB66C1D0C7B92009CFDB7 /* HTTPClientLogger.swift */; };
+		A66AB66F1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB66C1D0C7B92009CFDB7 /* HTTPClientLogger.swift */; };
+		A66AB6711D0C8412009CFDB7 /* HTTPClientDevLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB6701D0C8412009CFDB7 /* HTTPClientDevLogger.swift */; };
+		A66AB6721D0C8412009CFDB7 /* HTTPClientDevLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB6701D0C8412009CFDB7 /* HTTPClientDevLogger.swift */; };
 		A6703BA41C5E7B0B00B16CD7 /* HTTPQueryBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6703BA31C5E7B0B00B16CD7 /* HTTPQueryBody.swift */; };
 		A6703BA61C5EB23E00B16CD7 /* HTTPQueryJSONBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6703BA51C5EB23E00B16CD7 /* HTTPQueryJSONBody.swift */; };
 		A68039F31D0C4ECF003D3E89 /* Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68039F21D0C4ECF003D3E89 /* Log.framework */; };
@@ -64,6 +69,8 @@
 /* Begin PBXFileReference section */
 		A638B0001CA4204700254F97 /* HTTPQueryPreProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPQueryPreProcessor.swift; sourceTree = "<group>"; };
 		A6580F5D1CE3D44B000E7C6E /* HTTPClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTTPClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A66AB66C1D0C7B92009CFDB7 /* HTTPClientLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClientLogger.swift; sourceTree = "<group>"; };
+		A66AB6701D0C8412009CFDB7 /* HTTPClientDevLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClientDevLogger.swift; sourceTree = "<group>"; };
 		A6703BA31C5E7B0B00B16CD7 /* HTTPQueryBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPQueryBody.swift; sourceTree = "<group>"; };
 		A6703BA51C5EB23E00B16CD7 /* HTTPQueryJSONBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPQueryJSONBody.swift; sourceTree = "<group>"; };
 		A68039F21D0C4ECF003D3E89 /* Log.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Log.framework; path = Carthage/Build/iOS/Log.framework; sourceTree = "<group>"; };
@@ -159,6 +166,8 @@
 				A6703BA31C5E7B0B00B16CD7 /* HTTPQueryBody.swift */,
 				A6703BA51C5EB23E00B16CD7 /* HTTPQueryJSONBody.swift */,
 				A638B0001CA4204700254F97 /* HTTPQueryPreProcessor.swift */,
+				A66AB66C1D0C7B92009CFDB7 /* HTTPClientLogger.swift */,
+				A66AB6701D0C8412009CFDB7 /* HTTPClientDevLogger.swift */,
 			);
 			path = HTTPClient;
 			sourceTree = "<group>";
@@ -340,9 +349,11 @@
 			files = (
 				A6580F651CE3D488000E7C6E /* HTTPQuery.swift in Sources */,
 				A6580F661CE3D488000E7C6E /* HTTPQueryPath.swift in Sources */,
+				A66AB6721D0C8412009CFDB7 /* HTTPClientDevLogger.swift in Sources */,
 				A6580F671CE3D488000E7C6E /* HTTPRequestBuilder.swift in Sources */,
 				A6580F681CE3D488000E7C6E /* HTTPClient.swift in Sources */,
 				A6580F691CE3D488000E7C6E /* HTTPSessionFactory.swift in Sources */,
+				A66AB66E1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */,
 				A6580F6A1CE3D488000E7C6E /* HTTPNSURLSessionFactory.swift in Sources */,
 				A6580F6B1CE3D488000E7C6E /* HTTPHeaders.swift in Sources */,
 				A6580F6C1CE3D488000E7C6E /* HTTPQueryBody.swift in Sources */,
@@ -357,9 +368,11 @@
 			files = (
 				A6B136961C580F7600AA4F38 /* HTTPQuery.swift in Sources */,
 				A6B136981C580F9A00AA4F38 /* HTTPQueryPath.swift in Sources */,
+				A66AB6711D0C8412009CFDB7 /* HTTPClientDevLogger.swift in Sources */,
 				A6703BA61C5EB23E00B16CD7 /* HTTPQueryJSONBody.swift in Sources */,
 				A6703BA41C5E7B0B00B16CD7 /* HTTPQueryBody.swift in Sources */,
 				A6D151DE1C597A6300CB122B /* HTTPHeaders.swift in Sources */,
+				A66AB66D1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */,
 				A6B136A01C58236300AA4F38 /* HTTPClient.swift in Sources */,
 				A638B0011CA4204700254F97 /* HTTPQueryPreProcessor.swift in Sources */,
 				A6D151DA1C59665400CB122B /* HTTPSessionFactory.swift in Sources */,
@@ -372,6 +385,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A66AB66F1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */,
 				A6B1368B1C580CD800AA4F38 /* HTTPClientTests.swift in Sources */,
 				A6B1369E1C5813DA00AA4F38 /* HTTPRequestBuilderTest.swift in Sources */,
 				A6B1369C1C5812D900AA4F38 /* HTTPQueryPathTest.swift in Sources */,
