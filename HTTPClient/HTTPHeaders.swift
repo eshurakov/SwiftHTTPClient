@@ -27,6 +27,7 @@ public final class HTTPHeaders {
     public enum ContentType: String {
         case json = "application/json"
         case html = "text/html"
+        case text = "text/plain"
     }
     
     public var accept: ContentType? {

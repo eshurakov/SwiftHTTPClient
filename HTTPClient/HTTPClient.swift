@@ -8,6 +8,11 @@
 
 import Foundation
 
+public enum HTTPClientQueryResult<T> {
+    case Success(T)
+    case Failure(ErrorType)
+}
+
 public class HTTPClient {
     private let session: NSURLSession
     private let sessionDelegate = HTTPSessionDelegate()
@@ -41,6 +46,12 @@ public class HTTPClient {
         case Failure(ErrorType)
     }
     
+    public enum Error: ErrorType {
+        case generic(String)
+        case statusCode(Int, response: String)
+        case contentTypeMismatch(expected: String, received: String)
+    }
+    
     private init() {
         fatalError("Not supported")
     }
@@ -49,7 +60,10 @@ public class HTTPClient {
         self.session = sessionFactory.sessionWithDelegate(self.sessionDelegate)
         self.requestTransformer = requestTransformer
     }
-    
+}
+
+// MARK: execute request
+extension HTTPClient {
     public func execute(request: HTTPRequest, completion: RequestResult -> Void) {
         var request = request
         if let requestPreProcessor = self.requestPreProcessor {
@@ -72,6 +86,81 @@ public class HTTPClient {
     public func execute(request: NSURLRequest, completion: RequestResult -> Void) {
         let task = self.session.dataTaskWithRequest(request)
         self.sessionDelegate.startTask(task, completion: completion)
+    }
+}
+
+// MARK: execute query
+extension HTTPClient {
+    private func bodyFromResponse(response: Response, forRequest request: HTTPRequest) throws -> AnyObject {
+        if response.statusCode / 100 != 2 {
+            throw Error.statusCode(response.statusCode, response: response.debugDescription)
+        }
+        
+        guard let contentType = response.headers.contentType else {
+            return response.data
+        }
+        
+        if let expectedContentType = request.headers.accept  where expectedContentType != contentType {
+            throw Error.contentTypeMismatch(expected: expectedContentType.rawValue, received: contentType.rawValue)
+        }
+        
+        switch contentType {
+        case .json:
+            return try NSJSONSerialization.JSONObjectWithData(response.data, options: NSJSONReadingOptions(rawValue: 0))
+            
+        case .html, .text:
+            return String(data: response.data, encoding: NSUTF8StringEncoding) ?? response.data
+        }
+    }
+
+    public func execute<Q: HTTPQuery, T where T == Q.Result, T: ConvertableFromRaw>(query: Q, completion: (HTTPClientQueryResult<T>) -> ()) {
+        let request = query.request
+        
+        self.execute(request) { [weak self] (result) in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            switch result {
+            case .Success(let response):
+                do {
+                    let responseBody = try strongSelf.bodyFromResponse(response, forRequest: request)
+                    let result = try T(rawValue: responseBody)
+                    completion(.Success(result))
+                } catch (let error) {
+                    completion(.Failure(error))
+                }
+            case .Failure(let error):
+                completion(.Failure(error))
+            }
+        }
+    }
+    
+    public func execute<Q: HTTPQuery, T where Q.Result: CollectionType, T == Q.Result.Generator.Element, T: ConvertableFromRaw>(query: Q, completion: (HTTPClientQueryResult<[T]>) -> ()) {
+        let request = query.request
+        
+        self.execute(request) { [weak self] (result) in
+            guard let strongSelf = self else {
+                return
+            }
+            
+            switch result {
+            case .Success(let response):
+                do {
+                    let responseBody = try strongSelf.bodyFromResponse(response, forRequest: request)
+                    if let objectList = responseBody as? [AnyObject] {
+                        let result: [T] = try objectList.map({ try T(rawValue: $0) })
+                        completion(.Success(result))
+                    } else {
+                        completion(.Failure(Error.generic("Expected list of objects")))
+                    }
+                } catch (let error) {
+                    completion(.Failure(error))
+                }
+            case .Failure(let error):
+                completion(.Failure(error))
+            }
+        }
     }
 }
 

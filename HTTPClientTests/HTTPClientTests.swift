@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import HTTPClient
+@testable import HTTPClient
 
 class HTTPClientTests: XCTestCase {
     
