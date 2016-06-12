@@ -1,3 +1,6 @@
 [submodule "Carthage/Checkouts/SwiftLog"]
 	path = Carthage/Checkouts/SwiftLog
 	url = https://github.com/eshurakov/SwiftLog.git
+[submodule "Carthage/Checkouts/SwiftModelGenerator"]
+	path = Carthage/Checkouts/SwiftModelGenerator
+	url = https://github.com/eshurakov/SwiftModelGenerator.git

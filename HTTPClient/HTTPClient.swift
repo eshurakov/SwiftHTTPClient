@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RawConvertible
 
 public enum HTTPClientQueryResult<T> {
     case Success(T)
@@ -113,7 +114,7 @@ extension HTTPClient {
         }
     }
 
-    public func execute<Q: HTTPQuery, T where T == Q.Result, T: ConvertableFromRaw>(query: Q, completion: (HTTPClientQueryResult<T>) -> ()) {
+    public func execute<Q: HTTPQuery, T where T == Q.Result, T: ConvertibleFromRaw>(query: Q, completion: (HTTPClientQueryResult<T>) -> ()) {
         let request = query.request
         
         self.execute(request) { [weak self] (result) in
@@ -136,7 +137,7 @@ extension HTTPClient {
         }
     }
     
-    public func execute<Q: HTTPQuery, T where Q.Result: CollectionType, T == Q.Result.Generator.Element, T: ConvertableFromRaw>(query: Q, completion: (HTTPClientQueryResult<[T]>) -> ()) {
+    public func execute<Q: HTTPQuery, T where Q.Result: CollectionType, T == Q.Result.Generator.Element, T: ConvertibleFromRaw>(query: Q, completion: (HTTPClientQueryResult<[T]>) -> ()) {
         let request = query.request
         
         self.execute(request) { [weak self] (result) in
