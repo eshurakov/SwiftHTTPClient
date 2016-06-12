@@ -11,16 +11,16 @@ import Foundation
 public class HTTPClient {
     private let session: NSURLSession
     private let sessionDelegate = HTTPSessionDelegate()
-    private let requestBuilder = HTTPRequestBuilder()
+    private let requestTransformer: HTTPRequestTransformer
     
-    public var queryPreProcessor: HTTPQueryPreProcessor?
+    public var requestPreProcessor: HTTPRequestPreProcessor?
     public var logger: HTTPClientLogger? {
         didSet {
             self.sessionDelegate.logger = self.logger
         }
     }
     
-    public class Response {
+    public class Response: CustomDebugStringConvertible {
         public let statusCode: Int
         public let headers: HTTPHeaders
         public let data: NSData
@@ -31,12 +31,8 @@ public class HTTPClient {
             self.data = data
         }
         
-        public func utf8DataString() -> String {
-            if let result = NSString(data: self.data, encoding: NSUTF8StringEncoding) as? String {
-                return result
-            }
-            
-            return ""
+        public var debugDescription: String {
+            return String(data: self.data, encoding: NSUTF8StringEncoding) ?? ""
         }
     }
     
@@ -49,14 +45,16 @@ public class HTTPClient {
         fatalError("Not supported")
     }
     
-    public init(sessionFactory: HTTPSessionFactory) {
+    public init(sessionFactory: HTTPSessionFactory, requestTransformer: HTTPRequestTransformer = HTTPRequestTransformer()) {
         self.session = sessionFactory.sessionWithDelegate(self.sessionDelegate)
+        self.requestTransformer = requestTransformer
     }
     
-    public func execute(query: HTTPQuery, completion: RequestResult -> Void) {
-        if let queryPreProcessor = self.queryPreProcessor {
+    public func execute(request: HTTPRequest, completion: RequestResult -> Void) {
+        var request = request
+        if let requestPreProcessor = self.requestPreProcessor {
             do {
-                try queryPreProcessor.process(query)
+                request = try requestPreProcessor.process(request)
             } catch {
                 completion(.Failure(error))
                 return
@@ -64,8 +62,8 @@ public class HTTPClient {
         }
         
         do {
-            let request = try self.requestBuilder.requestFromQuery(query)
-            self.execute(request, completion: completion)
+            let urlRequest = try self.requestTransformer.transform(request)
+            self.execute(urlRequest, completion: completion)
         } catch {
             completion(.Failure(error))
         }
@@ -78,7 +76,7 @@ public class HTTPClient {
 }
 
 private class HTTPSessionDelegate: NSObject {
-    private var contexts: [Int : Context] = [:]
+    private var taskContexts: [Int : Context] = [:]
     var logger: HTTPClientLogger?
     
     class Context {
@@ -94,9 +92,9 @@ private class HTTPSessionDelegate: NSObject {
         self.logger?.logTaskStart(task)
                 
         // TODO: call completion with a failure?
-        assert(self.contexts[task.taskIdentifier] == nil)
+        assert(self.taskContexts[task.taskIdentifier] == nil)
         
-        self.contexts[task.taskIdentifier] = Context(completion: completion)
+        self.taskContexts[task.taskIdentifier] = Context(completion: completion)
         task.resume()
     }
 }
@@ -114,11 +112,11 @@ extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
     }
     
     @objc private func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
-        guard let context = self.contexts[task.taskIdentifier] else {
+        guard let context = self.taskContexts[task.taskIdentifier] else {
             return
         }
         
-        self.contexts[task.taskIdentifier] = nil
+        self.taskContexts[task.taskIdentifier] = nil
         
         if let error = error {
             self.logger?.logTaskFailure(task, error: error)
@@ -142,7 +140,7 @@ extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
 
 extension HTTPSessionDelegate: NSURLSessionDataDelegate {
     @objc private func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-        guard let context = self.contexts[dataTask.taskIdentifier] else {
+        guard let context = self.taskContexts[dataTask.taskIdentifier] else {
             return
         }
         

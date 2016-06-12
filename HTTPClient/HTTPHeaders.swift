@@ -8,8 +8,7 @@
 
 import Foundation
 
-// TODO: wrap key in an object, so that it would compare in a case-insensitive way 
-public class HTTPHeaders {
+public final class HTTPHeaders {
     public struct Key: Hashable {
         public static let ContentType = "Content-Type"
         public static let Accept = "Accept"

@@ -1,5 +1,5 @@
 //
-//  HTTPQueryJSONBody.swift
+//  HTTPRequestJSONBody.swift
 //  HTTPClient
 //
 //  Created by Evgeny Shurakov on 31.01.16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class HTTPQueryJSONBody: HTTPQueryBody {
+public final class HTTPRequestJSONBody: HTTPRequestBody {
     private let value: AnyObject
     
     public init(_ value: AnyObject) {

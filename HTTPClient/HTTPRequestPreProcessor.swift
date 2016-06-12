@@ -1,5 +1,5 @@
 //
-//  HTTPQueryPreProcessor.swift
+//  HTTPRequestPreProcessor.swift
 //  HTTPClient
 //
 //  Created by Evgeny Shurakov on 24.03.16.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol HTTPQueryPreProcessor {
-    func process(query: HTTPQuery) throws
+public protocol HTTPRequestPreProcessor {
+    func process(request: HTTPRequest) throws -> HTTPRequest
 }

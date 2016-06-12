@@ -1,5 +1,5 @@
 //
-//  HTTPQueryBody.swift
+//  HTTPRequestBody.swift
 //  HTTPClient
 //
 //  Created by Evgeny Shurakov on 31.01.16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol HTTPQueryBody {
+public protocol HTTPRequestBody {
     func data() throws -> NSData
     func headers() -> HTTPHeaders
 }

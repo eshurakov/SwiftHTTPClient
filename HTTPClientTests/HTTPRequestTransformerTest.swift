@@ -1,5 +1,5 @@
 //
-//  HTTPRequestBuilderTest.swift
+//  HTTPRequestTransformerTest.swift
 //  HTTPClient
 //
 //  Created by Evgeny Shurakov on 26.01.16.
@@ -9,22 +9,21 @@
 import XCTest
 @testable import HTTPClient
 
-class HTTPRequestBuilderTest: XCTestCase {
+class HTTPRequestTransformerTest: XCTestCase {
     
-    let requestBuilder = HTTPRequestBuilder(baseURL: NSURL(string: "https://test.com")!)
+    let requestTransformer = HTTPRequestTransformerTest(baseURL: NSURL(string: "https://test.com")!)
     
     override func setUp() {
         super.setUp()
-        
     }
     
     func testPath() throws {
-        let query = HTTPQuery(path: HTTPQueryPath("/test/path"))
-        let request = try requestBuilder.requestFromQuery(query)
+        let httpRequest = HTTPRequest(path: "/test/path")
+        let request = try requestTransformer.trasform(httpRequest)
         
         XCTAssertEqual(request.URL!.absoluteString, "https://test.com/test/path")
-        XCTAssertEqual(request.cachePolicy, requestBuilder.cachePolicy)
-        XCTAssertEqual(request.timeoutInterval, requestBuilder.timeoutInterval)
+        XCTAssertEqual(request.cachePolicy, requestTransformer.cachePolicy)
+        XCTAssertEqual(request.timeoutInterval, requestTransformer.timeoutInterval)
     }
     
     func testHeaders() throws {
@@ -33,12 +32,12 @@ class HTTPRequestBuilderTest: XCTestCase {
             "Authorization": "Bearer abcdefg"
         ]
         
-        let query = HTTPQuery(path: HTTPQueryPath("/test/path"))
+        let httpRequest = HTTPRequest(path: "/test/path")
         for (name, value) in headers {
-            query.headers[name] = value
+            httpRequest.headers[name] = value
         }
         
-        let request = try requestBuilder.requestFromQuery(query)
+        let request = try requestTransformer.trasform(query)
         XCTAssertEqual(request.allHTTPHeaderFields!, headers)
     }
     

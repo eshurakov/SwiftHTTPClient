@@ -1,5 +1,5 @@
 //
-//  HTTPQueryPathTest.swift
+//  HTTPRequestPathTest.swift
 //  HTTPClient
 //
 //  Created by Evgeny Shurakov on 26.01.16.
@@ -9,30 +9,31 @@
 import XCTest
 import HTTPClient
 
-class HTTPQueryPathTest: XCTestCase {
+class HTTPRequestPathTest: XCTestCase {
     
     func testPath() {
-        let path = HTTPQueryPath("test/something")
+        let path = HTTPRequest.Path("test/something")
         
         XCTAssertEqual(path.URL().absoluteString, "test/something")
     }
     
     func testParams() {
-        let path = HTTPQueryPath("test/something/%@/more/%d", "param", 42)
-        
-        XCTAssertEqual(path.URL().absoluteString, "test/something/param/more/42")
+        do {
+            let path = HTTPRequest.Path("test/something/%@/more/%d", "param", 42)
+            XCTAssertEqual(path.URL().absoluteString, "test/something/param/more/42")
+        }
     }
     
     func testQueryItems() {
         do {
-            let path = HTTPQueryPath("test/something/%@/more/%d", "param", 42)
+            let path = HTTPRequest.Path("test/something/%@/more/%d", "param", 42)
             path.setQueryItem("a", value: "b")
             
             XCTAssertEqual(path.URL().absoluteString, "test/something/param/more/42?a=b")
         }
         
         do {
-            let path = HTTPQueryPath("test/something/%@/more/%d", "param", 42)
+            let path = HTTPRequest.Path("test/something/%@/more/%d", "param", 42)
             path.setQueryItem("a", value: "b")
             path.setQueryItem("a b", value: "b=20")
             

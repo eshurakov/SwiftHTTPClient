@@ -8,14 +8,10 @@
 
 import Foundation
 
-public class HTTPNSURLSessionFactory: HTTPSessionFactory {
+public final class HTTPNSURLSessionFactory: HTTPSessionFactory {
     private let configuration: NSURLSessionConfiguration
-    
-    private init() {
-        fatalError("Not implemented")
-    }
-    
-    public init(configuration: NSURLSessionConfiguration) {
+        
+    public init(configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()) {
         self.configuration = configuration
     }
     
