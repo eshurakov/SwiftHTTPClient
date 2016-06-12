@@ -21,16 +21,17 @@ public final class HTTPRequest {
         private let components: NSURLComponents
         private var queryItems: [NSURLQueryItem]?
         
+        // TODO: handle nil components
+        // TODO: handle non-encoded paths
         public init(_ path: String, _ pathParams: CVarArgType...) {
             self.components = NSURLComponents(string: String(format: path, arguments: pathParams))!
         }
         
         public func setQueryItem(name: String, value: String) {
             if self.queryItems == nil {
-                self.queryItems = [NSURLQueryItem]()
+                self.queryItems = []
             }
-            
-            self.queryItems!.append(NSURLQueryItem(name: name, value: value))
+            self.queryItems?.append(NSURLQueryItem(name: name, value: value))
         }
         
         public func URL() -> NSURL {
@@ -56,4 +57,8 @@ public final class HTTPRequest {
         self.method = method
     }
     
+    public init(path: Path, method: Method = .GET) {
+        self.path = path
+        self.method = method
+    }
 }

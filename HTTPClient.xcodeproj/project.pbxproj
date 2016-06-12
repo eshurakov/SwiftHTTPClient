@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A60AA41C1CE52039004D4FE4 /* HTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B1367E1C580CD800AA4F38 /* HTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A61F7A4A1D0D9BDF00F40995 /* Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68039F21D0C4ECF003D3E89 /* Log.framework */; };
 		A638B0011CA4204700254F97 /* HTTPRequestPreProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A638B0001CA4204700254F97 /* HTTPRequestPreProcessor.swift */; };
 		A6580F651CE3D488000E7C6E /* HTTPRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B136951C580F7600AA4F38 /* HTTPRequest.swift */; };
 		A6580F671CE3D488000E7C6E /* HTTPRequestTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B136991C580FAF00AA4F38 /* HTTPRequestTransformer.swift */; };
@@ -112,6 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A61F7A4A1D0D9BDF00F40995 /* Log.framework in Frameworks */,
 				A6B136861C580CD800AA4F38 /* HTTPClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,8 +596,12 @@
 		A6B136931C580CD800AA4F38 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = HTTPClientTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = name.shurakov.HTTPClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -604,8 +610,12 @@
 		A6B136941C580CD800AA4F38 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = HTTPClientTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = name.shurakov.HTTPClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

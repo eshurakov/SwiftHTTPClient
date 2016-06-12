@@ -11,7 +11,7 @@ import XCTest
 
 class HTTPRequestTransformerTest: XCTestCase {
     
-    let requestTransformer = HTTPRequestTransformerTest(baseURL: NSURL(string: "https://test.com")!)
+    let requestTransformer = HTTPRequestTransformer(baseURL: NSURL(string: "https://test.com")!)
     
     override func setUp() {
         super.setUp()
@@ -19,7 +19,7 @@ class HTTPRequestTransformerTest: XCTestCase {
     
     func testPath() throws {
         let httpRequest = HTTPRequest(path: "/test/path")
-        let request = try requestTransformer.trasform(httpRequest)
+        let request = try requestTransformer.transform(httpRequest)
         
         XCTAssertEqual(request.URL!.absoluteString, "https://test.com/test/path")
         XCTAssertEqual(request.cachePolicy, requestTransformer.cachePolicy)
@@ -37,7 +37,7 @@ class HTTPRequestTransformerTest: XCTestCase {
             httpRequest.headers[name] = value
         }
         
-        let request = try requestTransformer.trasform(query)
+        let request = try requestTransformer.transform(httpRequest)
         XCTAssertEqual(request.allHTTPHeaderFields!, headers)
     }
     
