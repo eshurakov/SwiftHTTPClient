@@ -1,5 +1,5 @@
 //
-//  HTTPClientResponse.swift
+//  HTTPResponse.swift
 //  HTTPClient
 //
 //  Created by Evgeny Shurakov on 24.06.16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HTTPClientResponse: CustomDebugStringConvertible {
+public class HTTPResponse {
     public let statusCode: Int
     public let headers: HTTPHeaders
     public let data: NSData
@@ -18,7 +18,9 @@ public class HTTPClientResponse: CustomDebugStringConvertible {
         self.headers = headers
         self.data = data
     }
-    
+}
+
+extension HTTPResponse: CustomDebugStringConvertible {
     public var debugDescription: String {
         return String(data: self.data, encoding: NSUTF8StringEncoding) ?? ""
     }

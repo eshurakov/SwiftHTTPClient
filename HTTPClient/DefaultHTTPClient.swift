@@ -31,7 +31,7 @@ public final class DefaultHTTPClient: HTTPClient {
     }
 
     // MARK: execute request
-    public func execute(request: HTTPRequest, completion: HTTPClientRequestResult -> Void) {
+    public func execute(request: HTTPRequest, completion: HTTPRequestResult -> Void) {
         var request = request
         if let requestPreProcessor = self.requestPreProcessor {
             do {
@@ -50,13 +50,13 @@ public final class DefaultHTTPClient: HTTPClient {
         }
     }
     
-    public func execute(request: NSURLRequest, completion: HTTPClientRequestResult -> Void) {
+    public func execute(request: NSURLRequest, completion: HTTPRequestResult -> Void) {
         let task = self.session.dataTaskWithRequest(request)
         self.sessionDelegate.startTask(task, completion: completion)
     }
 
     // MARK: execute query
-    public func execute<Q: HTTPQuery, T where T == Q.Result, T: ConvertibleFromRaw>(query: Q, completion: (HTTPClientQueryResult<T>) -> ()) {
+    public func execute<Q: HTTPQuery, T where T == Q.Result, T: ConvertibleFromRaw>(query: Q, completion: (HTTPQueryResult<T>) -> ()) {
         let request = query.request
         
         self.execute(request) { [weak self] (result) in
@@ -79,7 +79,7 @@ public final class DefaultHTTPClient: HTTPClient {
         }
     }
     
-    public func execute<Q: HTTPQuery, T where Q.Result: CollectionType, T == Q.Result.Generator.Element, T: ConvertibleFromRaw>(query: Q, completion: (HTTPClientQueryResult<[T]>) -> ()) {
+    public func execute<Q: HTTPQuery, T where Q.Result: CollectionType, T == Q.Result.Generator.Element, T: ConvertibleFromRaw>(query: Q, completion: (HTTPQueryResult<[T]>) -> ()) {
         let request = query.request
         
         self.execute(request) { [weak self] (result) in
@@ -108,7 +108,7 @@ public final class DefaultHTTPClient: HTTPClient {
 }
 
 extension HTTPClient {
-    private func bodyFromResponse(response: HTTPClientResponse, forRequest request: HTTPRequest) throws -> AnyObject {
+    private func bodyFromResponse(response: HTTPResponse, forRequest request: HTTPRequest) throws -> AnyObject {
         if response.statusCode / 100 != 2 {
             throw HTTPClientError.statusCode(response.statusCode, response: response.debugDescription)
         }
@@ -137,14 +137,14 @@ private class HTTPSessionDelegate: NSObject {
     
     class Context {
         lazy var data = NSMutableData()
-        let completion: HTTPClientRequestResult -> Void
+        let completion: HTTPRequestResult -> Void
         
-        init(completion: HTTPClientRequestResult -> Void) {
+        init(completion: HTTPRequestResult -> Void) {
             self.completion = completion
         }
     }
     
-    func startTask(task: NSURLSessionTask, completion: HTTPClientRequestResult -> Void) {
+    func startTask(task: NSURLSessionTask, completion: HTTPRequestResult -> Void) {
         self.logger?.logTaskStart(task)
                 
         // TODO: call completion with a failure?
@@ -188,7 +188,7 @@ extension HTTPSessionDelegate: NSURLSessionTaskDelegate {
             }
             self.logger?.logTaskSuccess(task, statusCode: statusCode, data: context.data)
             
-            let response = HTTPClientResponse(statusCode: statusCode, headers: headers, data: context.data)
+            let response = HTTPResponse(statusCode: statusCode, headers: headers, data: context.data)
             context.completion(.success(response))
         }
     }

@@ -1,5 +1,5 @@
 //
-//  HTTPClientQueryResult.swift
+//  HTTPRequestResult.swift
 //  HTTPClient
 //
 //  Created by Evgeny Shurakov on 24.06.16.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum HTTPClientQueryResult<T> {
-    case success(T)
+public enum HTTPRequestResult {
+    case success(HTTPResponse)
     case failure(ErrorType)
 }
