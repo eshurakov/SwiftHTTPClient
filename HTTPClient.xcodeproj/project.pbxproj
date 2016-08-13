@@ -17,7 +17,6 @@
 		A61F7A4A1D0D9BDF00F40995 /* Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68039F21D0C4ECF003D3E89 /* Log.framework */; };
 		A61F7A501D0DA52100F40995 /* HTTPQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61F7A4C1D0DA52100F40995 /* HTTPQuery.swift */; };
 		A61F7A511D0DA52100F40995 /* HTTPQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61F7A4C1D0DA52100F40995 /* HTTPQuery.swift */; };
-		A638B0011CA4204700254F97 /* HTTPRequestPreProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A638B0001CA4204700254F97 /* HTTPRequestPreProcessor.swift */; };
 		A64E8D651D1D2ABF000C71C6 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */; };
 		A64E8D661D1D2ABF000C71C6 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */; };
 		A64E8D681D1D2D9A000C71C6 /* HTTPClientError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64E8D671D1D2D9A000C71C6 /* HTTPClientError.swift */; };
@@ -36,7 +35,6 @@
 		A6580F6B1CE3D488000E7C6E /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D151DD1C597A6300CB122B /* HTTPHeaders.swift */; };
 		A6580F6C1CE3D488000E7C6E /* HTTPRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6703BA31C5E7B0B00B16CD7 /* HTTPRequestBody.swift */; };
 		A6580F6D1CE3D488000E7C6E /* HTTPRequestJSONBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6703BA51C5EB23E00B16CD7 /* HTTPRequestJSONBody.swift */; };
-		A6580F6E1CE3D488000E7C6E /* HTTPRequestPreProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A638B0001CA4204700254F97 /* HTTPRequestPreProcessor.swift */; };
 		A66AB66D1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB66C1D0C7B92009CFDB7 /* HTTPClientLogger.swift */; };
 		A66AB66E1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB66C1D0C7B92009CFDB7 /* HTTPClientLogger.swift */; };
 		A66AB6711D0C8412009CFDB7 /* HTTPClientDevLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB6701D0C8412009CFDB7 /* HTTPClientDevLogger.swift */; };
@@ -54,6 +52,10 @@
 		A6D151DA1C59665400CB122B /* HTTPSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D151D91C59665400CB122B /* HTTPSessionFactory.swift */; };
 		A6D151DC1C5966B600CB122B /* HTTPNSURLSessionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D151DB1C5966B600CB122B /* HTTPNSURLSessionFactory.swift */; };
 		A6D151DE1C597A6300CB122B /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D151DD1C597A6300CB122B /* HTTPHeaders.swift */; };
+		A6DCA1561D4D390600C1A368 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DCA1551D4D390600C1A368 /* HTTPSession.swift */; };
+		A6DCA1571D4D390600C1A368 /* HTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DCA1551D4D390600C1A368 /* HTTPSession.swift */; };
+		A6DCA1591D4D428F00C1A368 /* DefaultHTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DCA1581D4D428F00C1A368 /* DefaultHTTPSession.swift */; };
+		A6DCA15A1D4D428F00C1A368 /* DefaultHTTPSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6DCA1581D4D428F00C1A368 /* DefaultHTTPSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,7 +87,6 @@
 		A60078621D0DDF37004D32F0 /* RawConvertible.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RawConvertible.framework; path = Carthage/Build/Mac/RawConvertible.framework; sourceTree = "<group>"; };
 		A60078641D0DDF49004D32F0 /* RawConvertible.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RawConvertible.framework.dSYM; path = Carthage/Build/Mac/RawConvertible.framework.dSYM; sourceTree = "<group>"; };
 		A61F7A4C1D0DA52100F40995 /* HTTPQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPQuery.swift; sourceTree = "<group>"; };
-		A638B0001CA4204700254F97 /* HTTPRequestPreProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestPreProcessor.swift; sourceTree = "<group>"; };
 		A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		A64E8D671D1D2D9A000C71C6 /* HTTPClientError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClientError.swift; sourceTree = "<group>"; };
 		A64E8D6A1D1D2DC7000C71C6 /* HTTPQueryResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPQueryResult.swift; sourceTree = "<group>"; };
@@ -113,6 +114,8 @@
 		A6D151D91C59665400CB122B /* HTTPSessionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSessionFactory.swift; sourceTree = "<group>"; };
 		A6D151DB1C5966B600CB122B /* HTTPNSURLSessionFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPNSURLSessionFactory.swift; sourceTree = "<group>"; };
 		A6D151DD1C597A6300CB122B /* HTTPHeaders.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPHeaders.swift; sourceTree = "<group>"; };
+		A6DCA1551D4D390600C1A368 /* HTTPSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPSession.swift; sourceTree = "<group>"; };
+		A6DCA1581D4D428F00C1A368 /* DefaultHTTPSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultHTTPSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,9 +208,10 @@
 				A6D151DD1C597A6300CB122B /* HTTPHeaders.swift */,
 				A6703BA31C5E7B0B00B16CD7 /* HTTPRequestBody.swift */,
 				A6703BA51C5EB23E00B16CD7 /* HTTPRequestJSONBody.swift */,
-				A638B0001CA4204700254F97 /* HTTPRequestPreProcessor.swift */,
 				A61F7A4C1D0DA52100F40995 /* HTTPQuery.swift */,
+				A6DCA1551D4D390600C1A368 /* HTTPSession.swift */,
 				A6B1369F1C58236200AA4F38 /* DefaultHTTPClient.swift */,
+				A6DCA1581D4D428F00C1A368 /* DefaultHTTPSession.swift */,
 				A61F7A471D0D94FE00F40995 /* Logger */,
 			);
 			path = HTTPClient;
@@ -309,7 +313,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Evgeny Shurakov";
 				TargetAttributes = {
 					A6580F5C1CE3D44B000E7C6E = {
@@ -317,9 +321,11 @@
 					};
 					A6B1367A1C580CD700AA4F38 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					A6B136841C580CD800AA4F38 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -402,10 +408,11 @@
 				A6580F6A1CE3D488000E7C6E /* HTTPNSURLSessionFactory.swift in Sources */,
 				A64E8D691D1D2D9A000C71C6 /* HTTPClientError.swift in Sources */,
 				A6580F6B1CE3D488000E7C6E /* HTTPHeaders.swift in Sources */,
+				A6DCA1571D4D390600C1A368 /* HTTPSession.swift in Sources */,
 				A6580F6C1CE3D488000E7C6E /* HTTPRequestBody.swift in Sources */,
 				A6580F6D1CE3D488000E7C6E /* HTTPRequestJSONBody.swift in Sources */,
 				A64E8D6C1D1D2DC7000C71C6 /* HTTPQueryResult.swift in Sources */,
-				A6580F6E1CE3D488000E7C6E /* HTTPRequestPreProcessor.swift in Sources */,
+				A6DCA15A1D4D428F00C1A368 /* DefaultHTTPSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,11 +432,12 @@
 				A64E8D711D1D2DEC000C71C6 /* HTTPRequestResult.swift in Sources */,
 				A6B136A01C58236300AA4F38 /* DefaultHTTPClient.swift in Sources */,
 				A64E8D681D1D2D9A000C71C6 /* HTTPClientError.swift in Sources */,
-				A638B0011CA4204700254F97 /* HTTPRequestPreProcessor.swift in Sources */,
 				A6D151DA1C59665400CB122B /* HTTPSessionFactory.swift in Sources */,
+				A6DCA1561D4D390600C1A368 /* HTTPSession.swift in Sources */,
 				A6D151DC1C5966B600CB122B /* HTTPNSURLSessionFactory.swift in Sources */,
 				A64E8D6B1D1D2DC7000C71C6 /* HTTPQueryResult.swift in Sources */,
 				A6B1369A1C580FAF00AA4F38 /* HTTPRequestTransformer.swift in Sources */,
+				A6DCA1591D4D428F00C1A368 /* DefaultHTTPSession.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,7 +466,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -484,7 +492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -503,6 +511,7 @@
 				PRODUCT_NAME = HTTPClient;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -519,8 +528,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -548,6 +559,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -567,8 +579,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -588,6 +602,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -599,6 +614,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -615,6 +631,7 @@
 				PRODUCT_NAME = HTTPClient;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -622,6 +639,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -637,6 +655,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = name.shurakov.HTTPClient;
 				PRODUCT_NAME = HTTPClient;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -652,6 +672,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = name.shurakov.HTTPClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -667,6 +688,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = name.shurakov.HTTPClientTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

@@ -15,7 +15,7 @@ public final class HTTPHeaders {
         public static let Authorization = "Authorization"
         
         public var hashValue: Int {
-            return self.value.lowercaseString.hashValue
+            return self.value.lowercased().hashValue
         }
         let value: String
         
@@ -95,13 +95,13 @@ public final class HTTPHeaders {
         updateWithHeaders(headers)
     }
     
-    func updateWithHeaders(headers: HTTPHeaders) {
+    func updateWithHeaders(_ headers: HTTPHeaders) {
         for (key, value) in headers.headers {
             self.headers[key] = value
         }
     }
     
-    func updateWithRawHeaders(rawHeaders: [NSObject: AnyObject]) {
+    func updateWithRawHeaders(_ rawHeaders: [NSObject: AnyObject]) {
         for (key, value) in rawHeaders {
             if let key = key as? String, let value = value as? String {
                 headers[Key(key)] = value
@@ -112,5 +112,5 @@ public final class HTTPHeaders {
 }
 
 public func ==(lhs: HTTPHeaders.Key, rhs: HTTPHeaders.Key) -> Bool {
-    return lhs.value.lowercaseString == rhs.value.lowercaseString
+    return lhs.value.lowercased() == rhs.value.lowercased()
 }

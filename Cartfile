@@ -1,2 +1,2 @@
-github "eshurakov/SwiftLog" "master"
-github "eshurakov/SwiftModelGenerator" "master"
+github "eshurakov/SwiftLog" "feature-swift3"
+github "eshurakov/SwiftModelGenerator" "feature-swift3"

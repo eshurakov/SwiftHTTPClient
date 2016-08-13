@@ -12,38 +12,41 @@ import Log
 public protocol HTTPClientLogger {
     var logger: Log {get}
     
-    func logRequestDescription(for task: NSURLSessionTask)
-    func logResponseDescription(for task: NSURLSessionTask, with data: NSData?)
+    func logRequestDescription(for task: URLSessionTask)
+    func logResponseDescription(for task: URLSessionTask, with data: Data?)
 }
 
 extension HTTPClientLogger {
-    public func logTaskStart(task: NSURLSessionTask) {
+    public func logTaskStart(_ task: URLSessionTask) {
         logTask(task, withAction: "start")
         self.logRequestDescription(for: task)
     }
     
-    public func logTaskRedirect(task: NSURLSessionTask) {
+    public func logTaskRedirect(_ task: URLSessionTask) {
         logTask(task, withAction: "redirect")
     }
     
-    public func logTaskFailure(task: NSURLSessionTask, error: NSError) {
+    public func logTaskFailure(_ task: URLSessionTask, error: NSError) {
         // TOOD: log as a warning
         logTask(task, withAction: "failure")
         self.logger.w("\(error)")
     }
     
-    public func logTaskSuccess(task: NSURLSessionTask, statusCode: Int, data: NSData?) {
+    public func logTaskSuccess(_ task: URLSessionTask, statusCode: Int, data: Data?) {
         logTask(task, withAction: "success [\(statusCode)]")
         self.logResponseDescription(for: task, with: data)
     }
     
-    private func logTask(task: NSURLSessionTask, withAction action: String) {
+    private func logTask(_ task: URLSessionTask, withAction action: String) {
         self.logger.d("\(action): \(self.descriptionForTask(task))")
     }
     
-    private func descriptionForTask(task: NSURLSessionTask) -> String {
-        let httpMethod = task.currentRequest?.HTTPMethod ?? "XXX"
-        let url = task.currentRequest?.URL ?? NSURL()
-        return "\(httpMethod):\(url)"
+    private func descriptionForTask(_ task: URLSessionTask) -> String {
+        let httpMethod = task.currentRequest?.httpMethod ?? "XXX"
+        if let url = task.currentRequest?.url {
+            return "\(httpMethod):\(url)"
+        } else {
+            return "\(httpMethod)"
+        }
     }
 }

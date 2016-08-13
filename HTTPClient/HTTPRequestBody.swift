@@ -9,6 +9,6 @@
 import Foundation
 
 public protocol HTTPRequestBody {
-    func data() throws -> NSData
+    func data() throws -> Data
     func headers() -> HTTPHeaders
 }

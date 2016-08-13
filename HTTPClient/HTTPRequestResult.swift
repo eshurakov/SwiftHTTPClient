@@ -10,5 +10,5 @@ import Foundation
 
 public enum HTTPRequestResult {
     case success(HTTPResponse)
-    case failure(ErrorType)
+    case failure(Error)
 }

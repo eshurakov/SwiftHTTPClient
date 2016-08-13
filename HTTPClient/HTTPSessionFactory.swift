@@ -9,5 +9,5 @@
 import Foundation
 
 public protocol HTTPSessionFactory {
-    func sessionWithDelegate(delegate: NSURLSessionDelegate) -> NSURLSession
+    func sessionWithDelegate(_ delegate: URLSessionDelegate) -> URLSession
 }

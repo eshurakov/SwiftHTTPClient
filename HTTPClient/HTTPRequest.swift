@@ -18,34 +18,34 @@ public final class HTTPRequest {
     }
     
     public final class Path {
-        private let components: NSURLComponents
-        private var queryItems: [NSURLQueryItem]?
+        private var components: URLComponents
+        private var queryItems: [URLQueryItem]?
         
         // TODO: handle nil components
         // TODO: handle non-encoded paths
-        public init(_ path: String, _ pathParams: CVarArgType...) {
-            self.components = NSURLComponents(string: String(format: path, arguments: pathParams))!
+        public init(_ path: String, _ pathParams: CVarArg...) {
+            self.components = URLComponents(string: String(format: path, arguments: pathParams))!
         }
         
-        public func setQueryItem(name: String, value: String) {
+        public func setQueryItem(_ name: String, value: String) {
             if self.queryItems == nil {
                 self.queryItems = []
             }
-            self.queryItems?.append(NSURLQueryItem(name: name, value: value))
+            self.queryItems?.append(URLQueryItem(name: name, value: value))
         }
         
-        public func URL() -> NSURL {
+        public func URL() -> Foundation.URL {
             self.components.queryItems = self.queryItems
-            return self.components.URL!
+            return self.components.url!
         }
         
-        func URLRelativeToURL(baseURL: NSURL) -> NSURL {
+        func URLRelativeToURL(_ baseURL: Foundation.URL) -> Foundation.URL {
             self.components.queryItems = self.queryItems
-            return self.components.URLRelativeToURL(baseURL)!
+            return self.components.url(relativeTo: baseURL)!
         }
         
     }
-
+    
     public let path: Path
     public let method: Method
     

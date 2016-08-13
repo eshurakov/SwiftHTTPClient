@@ -9,6 +9,6 @@
 import Foundation
 
 public enum HTTPQueryResult<T> {
-    case success(T)
-    case failure(ErrorType)
+    case success(T, HTTPResponse)
+    case failure(Error)
 }

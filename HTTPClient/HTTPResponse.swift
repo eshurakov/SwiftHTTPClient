@@ -11,9 +11,9 @@ import Foundation
 public class HTTPResponse {
     public let statusCode: Int
     public let headers: HTTPHeaders
-    public let data: NSData
+    public let data: Data
     
-    init(statusCode: Int, headers: HTTPHeaders, data: NSData) {
+    init(statusCode: Int, headers: HTTPHeaders, data: Data) {
         self.statusCode = statusCode
         self.headers = headers
         self.data = data
@@ -22,6 +22,6 @@ public class HTTPResponse {
 
 extension HTTPResponse: CustomDebugStringConvertible {
     public var debugDescription: String {
-        return String(data: self.data, encoding: NSUTF8StringEncoding) ?? ""
+        return String(data: self.data, encoding: String.Encoding.utf8) ?? ""
     }
 }

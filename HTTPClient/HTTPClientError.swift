@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum HTTPClientError: ErrorType {
+public enum HTTPClientError: Error {
     case generic(String)
     case statusCode(Int, response: String)
     case contentTypeMismatch(expected: String, received: String)

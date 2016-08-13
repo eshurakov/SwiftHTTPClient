@@ -9,13 +9,13 @@
 import Foundation
 
 public final class HTTPNSURLSessionFactory: HTTPSessionFactory {
-    private let configuration: NSURLSessionConfiguration
+    private let configuration: URLSessionConfiguration
         
-    public init(configuration: NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration()) {
+    public init(configuration: URLSessionConfiguration = URLSessionConfiguration.default) {
         self.configuration = configuration
     }
     
-    public func sessionWithDelegate(delegate: NSURLSessionDelegate) -> NSURLSession {
-        return NSURLSession(configuration: self.configuration, delegate: delegate, delegateQueue: NSOperationQueue.mainQueue())
+    public func sessionWithDelegate(_ delegate: URLSessionDelegate) -> URLSession {
+        return URLSession(configuration: self.configuration, delegate: delegate, delegateQueue: OperationQueue.main)
     }
 }
