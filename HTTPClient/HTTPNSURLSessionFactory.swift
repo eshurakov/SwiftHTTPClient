@@ -15,7 +15,7 @@ public final class HTTPNSURLSessionFactory: HTTPSessionFactory {
         self.configuration = configuration
     }
     
-    public func sessionWithDelegate(_ delegate: URLSessionDelegate) -> URLSession {
+    public func session(withDelegate delegate: URLSessionDataDelegate) -> URLSession {
         return URLSession(configuration: self.configuration, delegate: delegate, delegateQueue: OperationQueue.main)
     }
 }

@@ -25,7 +25,7 @@ public final class HTTPRequestTransformer {
         headers.updateWithHeaders(request.headers)
         
         if let body = request.body {
-            urlRequest.httpBody = try body.data() as Data
+            urlRequest.httpBody = try body.data()
             headers.updateWithHeaders(body.headers())
         }
         
@@ -39,7 +39,7 @@ public final class HTTPRequestTransformer {
         if let baseURL = self.baseURL {
             return request.path.URLRelativeToURL(baseURL)
         } else {
-            return request.path.URL() as URL
+            return request.path.URL()
         }
     }
 }

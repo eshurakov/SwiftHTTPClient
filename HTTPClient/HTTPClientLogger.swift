@@ -26,7 +26,7 @@ extension HTTPClientLogger {
         logTask(task, withAction: "redirect")
     }
     
-    public func logTaskFailure(_ task: URLSessionTask, error: NSError) {
+    public func logTaskFailure(_ task: URLSessionTask, error: Error) {
         // TOOD: log as a warning
         logTask(task, withAction: "failure")
         self.logger.w("\(error)")
@@ -35,6 +35,14 @@ extension HTTPClientLogger {
     public func logTaskSuccess(_ task: URLSessionTask, statusCode: Int, data: Data?) {
         logTask(task, withAction: "success [\(statusCode)]")
         self.logResponseDescription(for: task, with: data)
+    }
+    
+    public func logSessionFailure(_ error: Error?) {
+        if let error = error {
+            self.logger.e("Session became invalid with error: \(error)")
+        } else {
+            self.logger.e("Session became invalid")
+        }
     }
     
     private func logTask(_ task: URLSessionTask, withAction action: String) {

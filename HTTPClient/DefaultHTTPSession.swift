@@ -8,10 +8,10 @@
 
 import Foundation
 
-public class DefaultHTTPSessionHandler: NSObject, HTTPSession {
-    private var taskContexts: [Int: TaskContext] = [:]
+public class DefaultHTTPSession: NSObject, HTTPSession {
+    fileprivate var taskContexts: [Int: TaskContext] = [:]
     
-    private var session: Foundation.URLSession?
+    fileprivate var session: Foundation.URLSession?
     private let sessionFactory: HTTPSessionFactory
     
     public var logger: HTTPClientLogger?
@@ -20,7 +20,7 @@ public class DefaultHTTPSessionHandler: NSObject, HTTPSession {
         lazy var data = Data()
         let completion: (HTTPRequestResult) -> Void
         
-        init(completion: (HTTPRequestResult) -> Void) {
+        init(completion: @escaping (HTTPRequestResult) -> Void) {
             self.completion = completion
         }
     }
@@ -32,17 +32,15 @@ public class DefaultHTTPSessionHandler: NSObject, HTTPSession {
     public init(sessionFactory: HTTPSessionFactory) {
         self.sessionFactory = sessionFactory
         super.init()
-        self.createSession()
     }
     
-    private func createSession() {
-        self.session = self.sessionFactory.sessionWithDelegate(self)
-    }
-    
-    public func execute(_ request: URLRequest, completion: (HTTPRequestResult) -> Void) {
+    public func execute(_ request: URLRequest, completion: @escaping (HTTPRequestResult) -> Void) {
+        if self.session == nil {
+            self.session = self.sessionFactory.session(withDelegate: self)
+        }
+        
         guard let session = self.session else {
-            // TODO
-            return
+            fatalError("Session is nil right after it was created")
         }
         
         let task = session.dataTask(with: request)
@@ -57,18 +55,26 @@ public class DefaultHTTPSessionHandler: NSObject, HTTPSession {
     }
 }
 
-extension DefaultHTTPSessionHandler: URLSessionDelegate {
+extension DefaultHTTPSession: URLSessionDelegate {
     public func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        // TODO
+        self.session = nil
+        self.logger?.logSessionFailure(error)
+        
+        let taskContexts = self.taskContexts
+        self.taskContexts = [:]
+        for (_, context) in taskContexts {
+            context.completion(.failure(HTTPSessionError.becameInvalid(error)))
+        }
     }
 }
 
-extension DefaultHTTPSessionHandler: URLSessionTaskDelegate {
-    public func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: (URLRequest?) -> Void) {
+extension DefaultHTTPSession: URLSessionTaskDelegate {
+    
+    public func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
         self.logger?.logTaskRedirect(task)
         completionHandler(request)
     }
-    
+        
     public func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         guard let context = self.taskContexts[task.taskIdentifier] else {
             return
@@ -86,6 +92,7 @@ extension DefaultHTTPSessionHandler: URLSessionTaskDelegate {
                 headers.updateWithRawHeaders(httpResponse.allHeaderFields)
                 statusCode = httpResponse.statusCode
             } else {
+                // TODO: fail?
                 statusCode = 0
             }
             self.logger?.logTaskSuccess(task, statusCode: statusCode, data: context.data)
@@ -96,7 +103,7 @@ extension DefaultHTTPSessionHandler: URLSessionTaskDelegate {
     }
 }
 
-extension DefaultHTTPSessionHandler: URLSessionDataDelegate {
+extension DefaultHTTPSession: URLSessionDataDelegate {
     public func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         guard let context = self.taskContexts[dataTask.taskIdentifier] else {
             return

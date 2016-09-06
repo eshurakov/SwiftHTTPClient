@@ -101,7 +101,7 @@ public final class HTTPHeaders {
         }
     }
     
-    func updateWithRawHeaders(_ rawHeaders: [NSObject: AnyObject]) {
+    func updateWithRawHeaders(_ rawHeaders: [AnyHashable: Any]) {
         for (key, value) in rawHeaders {
             if let key = key as? String, let value = value as? String {
                 headers[Key(key)] = value

@@ -29,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A6580F5C1CE3D44B000E7C6E"
+            BuildableName = "HTTPClient.framework"
+            BlueprintName = "HTTPClient Mac"
+            ReferencedContainer = "container:HTTPClient.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

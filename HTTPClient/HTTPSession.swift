@@ -8,6 +8,6 @@
 
 import Foundation
 
-public protocol HTTPSession {
-    func execute(_ request: URLRequest, completion: (HTTPRequestResult) -> Void)
+public protocol HTTPSession {    
+    func execute(_ request: URLRequest, completion: @escaping (HTTPRequestResult) -> Void)
 }

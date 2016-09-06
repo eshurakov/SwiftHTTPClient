@@ -10,9 +10,8 @@ import Foundation
 import RawConvertible
 
 public protocol HTTPClient {
-    func execute(_ request: HTTPRequest, completion: (HTTPRequestResult) -> Void)
-    func execute(_ request: URLRequest, completion: (HTTPRequestResult) -> Void)
+    func execute(_ request: HTTPRequest, completion: @escaping (HTTPRequestResult) -> Void)
     
-    func execute<Q: HTTPQuery, T where T == Q.Result, T: ConvertibleFromRaw>(_ query: Q, completion: (HTTPQueryResult<T>) -> ())
-    func execute<Q: HTTPQuery, T where Q.Result: Collection, T == Q.Result.Iterator.Element, T: ConvertibleFromRaw>(_ query: Q, completion: (HTTPQueryResult<[T]>) -> ())
+    func execute<Q: HTTPQuery, T>(_ query: Q, completion: (HTTPQueryResult<T>) -> ()) where T == Q.Result, T: ConvertibleFromRaw
+    func execute<Q: HTTPQuery, T>(_ query: Q, completion: (HTTPQueryResult<[T]>) -> ()) where Q.Result: Collection, T == Q.Result.Iterator.Element, T: ConvertibleFromRaw
 }
