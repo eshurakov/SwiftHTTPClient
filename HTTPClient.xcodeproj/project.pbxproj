@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A60078651D0DDF49004D32F0 /* RawConvertible.framework.dSYM in CopyFiles */ = {isa = PBXBuildFile; fileRef = A60078641D0DDF49004D32F0 /* RawConvertible.framework.dSYM */; };
 		A60AA41C1CE52039004D4FE4 /* HTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = A6B1367E1C580CD800AA4F38 /* HTTPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A61267741D0DB45700BA2F2F /* HTTPClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1368A1C580CD800AA4F38 /* HTTPClientTest.swift */; };
 		A61267751D0DB45700BA2F2F /* HTTPRequestPathTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1369B1C5812D900AA4F38 /* HTTPRequestPathTest.swift */; };
@@ -74,7 +73,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				A60078651D0DDF49004D32F0 /* RawConvertible.framework.dSYM in CopyFiles */,
 				A68039F91D0C4F6D003D3E89 /* Log.framework.dSYM in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,9 +80,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		A60078601D0DDF13004D32F0 /* RawConvertible.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RawConvertible.framework; path = Carthage/Build/iOS/RawConvertible.framework; sourceTree = "<group>"; };
-		A60078621D0DDF37004D32F0 /* RawConvertible.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RawConvertible.framework; path = Carthage/Build/Mac/RawConvertible.framework; sourceTree = "<group>"; };
-		A60078641D0DDF49004D32F0 /* RawConvertible.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RawConvertible.framework.dSYM; path = Carthage/Build/Mac/RawConvertible.framework.dSYM; sourceTree = "<group>"; };
 		A6130EE31DDDD62D000A26EA /* HTTPRequestProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestProcessor.swift; sourceTree = "<group>"; };
 		A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		A64E8D6D1D1D2DDC000C71C6 /* HTTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
@@ -160,10 +155,7 @@
 		A68039FA1D0C4F77003D3E89 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A60078621D0DDF37004D32F0 /* RawConvertible.framework */,
-				A60078601D0DDF13004D32F0 /* RawConvertible.framework */,
 				A68039F81D0C4F6D003D3E89 /* Log.framework.dSYM */,
-				A60078641D0DDF49004D32F0 /* RawConvertible.framework.dSYM */,
 				A68039F51D0C4F42003D3E89 /* Log.framework */,
 				A68039F21D0C4ECF003D3E89 /* Log.framework */,
 			);
