@@ -14,11 +14,18 @@ public final class HTTPRequestTransformer {
     public var timeoutInterval: TimeInterval = 30
     public var headers = HTTPHeaders()
     
+    public var requestPreProcessor: HTTPRequestProcessor? = nil
+    
     public init(baseURL: URL? = nil) {
         self.baseURL = baseURL
     }
     
     func transform(_ request: HTTPRequest) throws -> URLRequest {
+        var request = request
+        if let requestPreProcessor = self.requestPreProcessor {
+            request = try requestPreProcessor.process(request)
+        }
+        
         var urlRequest = URLRequest(url: URLFromQuery(request), cachePolicy: self.cachePolicy, timeoutInterval: self.timeoutInterval)
         
         let headers = HTTPHeaders(self.headers)

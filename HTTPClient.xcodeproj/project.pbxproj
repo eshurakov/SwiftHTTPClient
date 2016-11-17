@@ -12,6 +12,8 @@
 		A61267741D0DB45700BA2F2F /* HTTPClientTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1368A1C580CD800AA4F38 /* HTTPClientTest.swift */; };
 		A61267751D0DB45700BA2F2F /* HTTPRequestPathTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1369B1C5812D900AA4F38 /* HTTPRequestPathTest.swift */; };
 		A61267761D0DB45700BA2F2F /* HTTPRequestTransformerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6B1369D1C5813DA00AA4F38 /* HTTPRequestTransformerTest.swift */; };
+		A6130EE41DDDD62D000A26EA /* HTTPRequestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6130EE31DDDD62D000A26EA /* HTTPRequestProcessor.swift */; };
+		A6130EE51DDDD62D000A26EA /* HTTPRequestProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6130EE31DDDD62D000A26EA /* HTTPRequestProcessor.swift */; };
 		A64E8D651D1D2ABF000C71C6 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */; };
 		A64E8D661D1D2ABF000C71C6 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */; };
 		A64E8D6E1D1D2DDC000C71C6 /* HTTPResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A64E8D6D1D1D2DDC000C71C6 /* HTTPResponse.swift */; };
@@ -83,6 +85,7 @@
 		A60078601D0DDF13004D32F0 /* RawConvertible.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RawConvertible.framework; path = Carthage/Build/iOS/RawConvertible.framework; sourceTree = "<group>"; };
 		A60078621D0DDF37004D32F0 /* RawConvertible.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RawConvertible.framework; path = Carthage/Build/Mac/RawConvertible.framework; sourceTree = "<group>"; };
 		A60078641D0DDF49004D32F0 /* RawConvertible.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RawConvertible.framework.dSYM; path = Carthage/Build/Mac/RawConvertible.framework.dSYM; sourceTree = "<group>"; };
+		A6130EE31DDDD62D000A26EA /* HTTPRequestProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestProcessor.swift; sourceTree = "<group>"; };
 		A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		A64E8D6D1D1D2DDC000C71C6 /* HTTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
 		A64E8D701D1D2DEC000C71C6 /* HTTPRequestResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestResult.swift; sourceTree = "<group>"; };
@@ -194,6 +197,7 @@
 				A6B1367E1C580CD800AA4F38 /* HTTPClient.h */,
 				A6B136951C580F7600AA4F38 /* HTTPRequest.swift */,
 				A6B136991C580FAF00AA4F38 /* HTTPRequestTransformer.swift */,
+				A6130EE31DDDD62D000A26EA /* HTTPRequestProcessor.swift */,
 				A6703BA31C5E7B0B00B16CD7 /* HTTPRequestBody.swift */,
 				A6703BA51C5EB23E00B16CD7 /* HTTPRequestJSONBody.swift */,
 				A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */,
@@ -413,6 +417,7 @@
 				A66AB66E1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */,
 				A64E8D721D1D2DEC000C71C6 /* HTTPRequestResult.swift in Sources */,
 				A6580F6A1CE3D488000E7C6E /* HTTPNSURLSessionFactory.swift in Sources */,
+				A6130EE51DDDD62D000A26EA /* HTTPRequestProcessor.swift in Sources */,
 				A6580F6B1CE3D488000E7C6E /* HTTPHeaders.swift in Sources */,
 				A6DCA1571D4D390600C1A368 /* HTTPSession.swift in Sources */,
 				A6580F6C1CE3D488000E7C6E /* HTTPRequestBody.swift in Sources */,
@@ -436,6 +441,7 @@
 				A66AB66D1D0C7B92009CFDB7 /* HTTPClientLogger.swift in Sources */,
 				A64E8D711D1D2DEC000C71C6 /* HTTPRequestResult.swift in Sources */,
 				A6B136A01C58236300AA4F38 /* DefaultHTTPClient.swift in Sources */,
+				A6130EE41DDDD62D000A26EA /* HTTPRequestProcessor.swift in Sources */,
 				A6D151DA1C59665400CB122B /* HTTPSessionFactory.swift in Sources */,
 				A6DCA1561D4D390600C1A368 /* HTTPSession.swift in Sources */,
 				A6D151DC1C5966B600CB122B /* HTTPNSURLSessionFactory.swift in Sources */,
