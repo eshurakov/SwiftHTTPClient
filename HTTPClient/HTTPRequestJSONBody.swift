@@ -9,9 +9,9 @@
 import Foundation
 
 public final class HTTPRequestJSONBody: HTTPRequestBody {
-    private let value: AnyObject
+    private let value: Any
     
-    public init(_ value: AnyObject) {
+    public init(_ value: Any) {
         self.value = value
     }
     
