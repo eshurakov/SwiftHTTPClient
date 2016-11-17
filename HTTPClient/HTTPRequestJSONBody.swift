@@ -16,7 +16,7 @@ public final class HTTPRequestJSONBody: HTTPRequestBody {
     }
     
     public func data() throws -> Data {
-        return try JSONSerialization.data(withJSONObject: self.value, options: JSONSerialization.WritingOptions(rawValue: 0))
+        return try JSONSerialization.data(withJSONObject: self.value, options: [])
     }
     
     public func headers() -> HTTPHeaders {

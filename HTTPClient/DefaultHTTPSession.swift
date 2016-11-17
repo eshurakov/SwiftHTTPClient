@@ -16,7 +16,7 @@ public class DefaultHTTPSession: NSObject, HTTPSession {
     
     public var logger: HTTPClientLogger?
     
-    private class TaskContext {
+    fileprivate class TaskContext {
         lazy var data = Data()
         let completion: (HTTPRequestResult) -> Void
         
