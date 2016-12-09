@@ -10,4 +10,6 @@ import Foundation
 
 public enum HTTPSessionError: Error {
     case becameInvalid(Error?)
+    case missingURLResponse
+    case unsupportedURLResponseSubclass(String)
 }

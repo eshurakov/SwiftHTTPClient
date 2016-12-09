@@ -104,6 +104,44 @@ class HTTPSessionTest: XCTestCase {
         return dataTask
     }
     
+    func testSuccessfulExecutionButNilResponse() {
+        let expectation = self.expectation(description: "Execution expectation")
+        
+        let url = URL(string: "https://google.com")!
+        let request = URLRequest(url: url)
+        
+        self.session.execute(request) { (result) in
+            expectation.fulfill()
+            
+            switch result {
+            case .success(let response):
+                XCTAssertNil(response)
+                break
+                
+            case .failure(let error as HTTPSessionError):
+                switch error {
+                case .missingURLResponse:
+                    break
+                default:
+                    XCTAssertTrue(false)
+                }
+                break
+            default:
+                XCTAssertTrue(false)
+            }
+        }
+        
+        let urlSession = self.urlSessionFactory.session!
+        let dataTask = urlSession.dataTasks.last!
+        
+        XCTAssertNotNil(dataTask)
+        XCTAssertEqual(dataTask.originalRequest, request)
+        
+        urlSession.dataDelegate.urlSession!(urlSession, task: dataTask, didCompleteWithError: nil)
+        
+        self.waitForExpectations(timeout: 0.0, handler: nil)
+    }
+    
     func testSuccessfulExecutionButNonHTTPResponse() {
         let expectation = self.expectation(description: "Execution expectation")
         
@@ -115,17 +153,25 @@ class HTTPSessionTest: XCTestCase {
             
             switch result {
             case .success(let response):
-                XCTAssertEqual(response.statusCode, 0)
+                XCTAssertNil(response)
                 break
                 
-            case .failure(let error):
-                XCTAssertNil(error)
+            case .failure(let error as HTTPSessionError):
+                switch error {
+                case .unsupportedURLResponseSubclass(_):
+                    break
+                default:
+                    XCTAssertTrue(false)
+                }
                 break
+            default:
+                XCTAssertTrue(false)
             }
         }
         
         let urlSession = self.urlSessionFactory.session!
         let dataTask = urlSession.dataTasks.last!
+        dataTask.mockResponse = URLResponse()
         
         XCTAssertNotNil(dataTask)
         XCTAssertEqual(dataTask.originalRequest, request)

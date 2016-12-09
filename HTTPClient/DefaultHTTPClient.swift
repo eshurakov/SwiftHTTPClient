@@ -12,12 +12,9 @@ public final class DefaultHTTPClient: HTTPClient {
     fileprivate let session: HTTPSession
     fileprivate let requestTransformer: HTTPRequestTransformer
     
-    public let logger: HTTPClientLogger?
-
-    public init(session: HTTPSession, requestTransformer: HTTPRequestTransformer, logger: HTTPClientLogger? = nil) {
+    public init(session: HTTPSession, requestTransformer: HTTPRequestTransformer) {
         self.session = session
         self.requestTransformer = requestTransformer
-        self.logger = logger
     }
 }
 

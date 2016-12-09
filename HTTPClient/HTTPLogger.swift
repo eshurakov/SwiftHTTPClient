@@ -1,5 +1,5 @@
 //
-//  HTTPClientLogger.swift
+//  HTTPLogger.swift
 //  HTTPClient
 //
 //  Created by Evgeny Shurakov on 11.06.16.
@@ -7,34 +7,39 @@
 //
 
 import Foundation
-import Log
 
-public protocol HTTPClientLogger {
-    var logger: Log {get}
-    
-    func logRequestDescription(for task: URLSessionTask)
-    func logResponseDescription(for task: URLSessionTask, with data: Data?)
+public protocol HTTPLoggerEngine {
+    func e(_ message: @autoclosure () -> String)
+    func w(_ message: @autoclosure () -> String)
+    func i(_ message: @autoclosure () -> String)
+    func d(_ message: @autoclosure () -> String)
 }
 
-extension HTTPClientLogger {
-    public func logTaskStart(_ task: URLSessionTask) {
+public protocol HTTPLogger {
+    var logger: HTTPLoggerEngine {get}
+    
+    func logRequest(for task: URLSessionTask)
+    func logResponse(_ response: HTTPResponse)
+}
+
+extension HTTPLogger {
+    public func logStart(of task: URLSessionTask) {
         logTask(task, withAction: "start")
-        self.logRequestDescription(for: task)
+        self.logRequest(for: task)
     }
     
-    public func logTaskRedirect(_ task: URLSessionTask) {
+    public func logRedirect(of task: URLSessionTask) {
         logTask(task, withAction: "redirect")
     }
     
-    public func logTaskFailure(_ task: URLSessionTask, error: Error) {
-        // TOOD: log as a warning
+    public func logFailure(of task: URLSessionTask, with error: Error) {
         logTask(task, withAction: "failure")
         self.logger.w("\(error)")
     }
     
-    public func logTaskSuccess(_ task: URLSessionTask, statusCode: Int, data: Data?) {
-        logTask(task, withAction: "success [\(statusCode)]")
-        self.logResponseDescription(for: task, with: data)
+    public func logSuccess(of task: URLSessionTask, with response: HTTPResponse) {
+        logTask(task, withAction: "success [\(response.statusCode)]")
+        self.logResponse(response)
     }
     
     public func logSessionFailure(_ error: Error?) {

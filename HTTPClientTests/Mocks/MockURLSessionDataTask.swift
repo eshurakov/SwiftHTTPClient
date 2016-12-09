@@ -14,7 +14,7 @@ class MockURLSessionDataTask: URLSessionDataTask {
     var resumed: Bool = false
     
     var mockRequest: URLRequest?
-    var mockResponse: HTTPURLResponse?
+    var mockResponse: URLResponse?
     
     init(request: URLRequest) {
         mockRequest = request

@@ -14,7 +14,7 @@ public class DefaultHTTPSession: NSObject, HTTPSession {
     fileprivate var session: Foundation.URLSession?
     private let sessionFactory: HTTPSessionFactory
     
-    public var logger: HTTPClientLogger?
+    public var logger: HTTPLogger?
     
     fileprivate class TaskContext {
         lazy var data = Data()
@@ -45,7 +45,7 @@ public class DefaultHTTPSession: NSObject, HTTPSession {
         
         let task = session.dataTask(with: request)
         
-        self.logger?.logTaskStart(task)
+        self.logger?.logStart(of: task)
         
         // TODO: call completion with a failure?
         assert(self.taskContexts[task.taskIdentifier] == nil)
@@ -71,7 +71,7 @@ extension DefaultHTTPSession: URLSessionDelegate {
 extension DefaultHTTPSession: URLSessionTaskDelegate {
     
     public func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) {
-        self.logger?.logTaskRedirect(task)
+        self.logger?.logRedirect(of: task)
         completionHandler(request)
     }
         
@@ -83,22 +83,26 @@ extension DefaultHTTPSession: URLSessionTaskDelegate {
         self.taskContexts[task.taskIdentifier] = nil
         
         if let error = error {
-            self.logger?.logTaskFailure(task, error: error)
+            self.logger?.logFailure(of: task, with: error)
             context.completion(.failure(error))
         } else {
-            let headers = HTTPHeaders()
-            let statusCode: Int
-            if let httpResponse = task.response as? HTTPURLResponse {
-                headers.updateWithRawHeaders(httpResponse.allHeaderFields)
-                statusCode = httpResponse.statusCode
+            if let response = task.response {
+                if let httpResponse = response as? HTTPURLResponse {
+                    let response = HTTPResponse(with: httpResponse,
+                                                data: context.data)
+                    
+                    self.logger?.logSuccess(of: task, with: response)
+                    context.completion(.success(response))
+                } else {
+                    let error = HTTPSessionError.unsupportedURLResponseSubclass(String(describing: type(of: response)))
+                    self.logger?.logFailure(of: task, with: error)
+                    context.completion(.failure(error))
+                }
             } else {
-                // TODO: fail?
-                statusCode = 0
+                let error = HTTPSessionError.missingURLResponse
+                self.logger?.logFailure(of: task, with: error)
+                context.completion(.failure(error))
             }
-            self.logger?.logTaskSuccess(task, statusCode: statusCode, data: context.data)
-            
-            let response = HTTPResponse(statusCode: statusCode, headers: headers, data: context.data)
-            context.completion(.success(response))
         }
     }
 }

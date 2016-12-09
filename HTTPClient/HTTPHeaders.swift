@@ -95,6 +95,10 @@ public final class HTTPHeaders {
         updateWithHeaders(headers)
     }
     
+    public init(_ rawHeaders: [AnyHashable: Any]) {
+        updateWithRawHeaders(rawHeaders)
+    }
+    
     func updateWithHeaders(_ headers: HTTPHeaders) {
         for (key, value) in headers.headers {
             self.headers[key] = value

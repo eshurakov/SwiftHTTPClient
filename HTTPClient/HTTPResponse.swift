@@ -13,9 +13,9 @@ public class HTTPResponse {
     public let headers: HTTPHeaders
     public let data: Data
     
-    init(statusCode: Int, headers: HTTPHeaders, data: Data) {
-        self.statusCode = statusCode
-        self.headers = headers
+    init(with urlResponse: HTTPURLResponse, data: Data) {
+        self.statusCode = urlResponse.statusCode
+        self.headers = HTTPHeaders(urlResponse.allHeaderFields)
         self.data = data
     }
 }
