@@ -27,6 +27,10 @@
 		A6580F6B1CE3D488000E7C6E /* HTTPHeaders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D151DD1C597A6300CB122B /* HTTPHeaders.swift */; };
 		A6580F6C1CE3D488000E7C6E /* HTTPRequestBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6703BA31C5E7B0B00B16CD7 /* HTTPRequestBody.swift */; };
 		A6580F6D1CE3D488000E7C6E /* HTTPRequestJSONBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6703BA51C5EB23E00B16CD7 /* HTTPRequestJSONBody.swift */; };
+		A660654E1E574783000301E9 /* HTTPRequestMultipartBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A660654D1E574783000301E9 /* HTTPRequestMultipartBody.swift */; };
+		A660654F1E574783000301E9 /* HTTPRequestMultipartBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = A660654D1E574783000301E9 /* HTTPRequestMultipartBody.swift */; };
+		A66065511E57481E000301E9 /* HTTPRequestAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66065501E57481E000301E9 /* HTTPRequestAttachment.swift */; };
+		A66065521E57481E000301E9 /* HTTPRequestAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66065501E57481E000301E9 /* HTTPRequestAttachment.swift */; };
 		A66AB66D1D0C7B92009CFDB7 /* HTTPLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB66C1D0C7B92009CFDB7 /* HTTPLogger.swift */; };
 		A66AB66E1D0C7B92009CFDB7 /* HTTPLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB66C1D0C7B92009CFDB7 /* HTTPLogger.swift */; };
 		A66AB6711D0C8412009CFDB7 /* HTTPDevLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66AB6701D0C8412009CFDB7 /* HTTPDevLogger.swift */; };
@@ -71,6 +75,8 @@
 		A64E8D6D1D1D2DDC000C71C6 /* HTTPResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPResponse.swift; sourceTree = "<group>"; };
 		A64E8D701D1D2DEC000C71C6 /* HTTPRequestResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestResult.swift; sourceTree = "<group>"; };
 		A6580F5D1CE3D44B000E7C6E /* HTTPClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HTTPClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A660654D1E574783000301E9 /* HTTPRequestMultipartBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestMultipartBody.swift; sourceTree = "<group>"; };
+		A66065501E57481E000301E9 /* HTTPRequestAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestAttachment.swift; sourceTree = "<group>"; };
 		A66AB66C1D0C7B92009CFDB7 /* HTTPLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPLogger.swift; sourceTree = "<group>"; };
 		A66AB6701D0C8412009CFDB7 /* HTTPDevLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPDevLogger.swift; sourceTree = "<group>"; };
 		A6703BA31C5E7B0B00B16CD7 /* HTTPRequestBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPRequestBody.swift; sourceTree = "<group>"; };
@@ -177,6 +183,8 @@
 				A6130EE31DDDD62D000A26EA /* HTTPRequestProcessor.swift */,
 				A6703BA31C5E7B0B00B16CD7 /* HTTPRequestBody.swift */,
 				A6703BA51C5EB23E00B16CD7 /* HTTPRequestJSONBody.swift */,
+				A660654D1E574783000301E9 /* HTTPRequestMultipartBody.swift */,
+				A66065501E57481E000301E9 /* HTTPRequestAttachment.swift */,
 				A64E8D641D1D2ABF000C71C6 /* HTTPClient.swift */,
 				A64E8D701D1D2DEC000C71C6 /* HTTPRequestResult.swift */,
 				A64E8D6D1D1D2DDC000C71C6 /* HTTPResponse.swift */,
@@ -372,7 +380,9 @@
 				A6580F671CE3D488000E7C6E /* HTTPRequestTransformer.swift in Sources */,
 				A6580F681CE3D488000E7C6E /* DefaultHTTPClient.swift in Sources */,
 				A6AC32721DFABF320007F21A /* Data+Debug.swift in Sources */,
+				A66065521E57481E000301E9 /* HTTPRequestAttachment.swift in Sources */,
 				A6580F691CE3D488000E7C6E /* HTTPSessionFactory.swift in Sources */,
+				A660654F1E574783000301E9 /* HTTPRequestMultipartBody.swift in Sources */,
 				A66AB66E1D0C7B92009CFDB7 /* HTTPLogger.swift in Sources */,
 				A64E8D721D1D2DEC000C71C6 /* HTTPRequestResult.swift in Sources */,
 				A6580F6A1CE3D488000E7C6E /* HTTPNSURLSessionFactory.swift in Sources */,
@@ -397,7 +407,9 @@
 				A6703BA61C5EB23E00B16CD7 /* HTTPRequestJSONBody.swift in Sources */,
 				A6703BA41C5E7B0B00B16CD7 /* HTTPRequestBody.swift in Sources */,
 				A6AC32711DFABF320007F21A /* Data+Debug.swift in Sources */,
+				A66065511E57481E000301E9 /* HTTPRequestAttachment.swift in Sources */,
 				A6D151DE1C597A6300CB122B /* HTTPHeaders.swift in Sources */,
+				A660654E1E574783000301E9 /* HTTPRequestMultipartBody.swift in Sources */,
 				A66AB66D1D0C7B92009CFDB7 /* HTTPLogger.swift in Sources */,
 				A64E8D711D1D2DEC000C71C6 /* HTTPRequestResult.swift in Sources */,
 				A6B136A01C58236300AA4F38 /* DefaultHTTPClient.swift in Sources */,
