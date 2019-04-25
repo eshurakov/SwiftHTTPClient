@@ -13,14 +13,15 @@ public final class HTTPHeaders {
         public static let ContentType = "Content-Type"
         public static let Accept = "Accept"
         public static let Authorization = "Authorization"
-        
-        public var hashValue: Int {
-            return self.value.lowercased().hashValue
-        }
+                
         let value: String
         
         init(_ value: String) {
             self.value = value
+        }
+        
+        public func hash(into hasher: inout Hasher) {
+            hasher.combine(self.value)
         }
     }
     
